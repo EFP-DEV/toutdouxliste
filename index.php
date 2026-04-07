@@ -17,10 +17,12 @@
             
             $statement = $pdo->query($sql);
             while($tache = $statement->fetch()){
-                echo '<li>
-                    <label for="tache_1">'.$tache['contenu'].'</label>
+            ?>
+                <li>
+                    <label for="tache_1"><?php echo $tache['contenu']; ?></label>
                     <input type="checkbox" name="tache_1" id="tache_1">
-                </li>';
+                </li>
+            <?php
             }
             ?>
 

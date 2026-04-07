@@ -9,21 +9,35 @@
     <form action="submit.php" method="POST">
         <h1>Corvee</h1>
         <ul>
-
             <?php
             include 'PDO.php';
             
-            $sql = 'SELECT * FROM `tache` ORDER BY id ASC';
+            $sql = 'SELECT id, contenu, accompli FROM `tache` ORDER BY id ASC';
             
             $statement = $pdo->query($sql);
             while($tache = $statement->fetch()){
             ?>
                 <li>
-                    <label for="tache_1"><?php echo $tache['contenu']; ?></label>
                     <input type="checkbox" name="tache_1" id="tache_1">
+                    <label for="tache_1"><?php echo $tache['contenu']; ?></label>
                 </li>
             <?php
             }
+            ?>
+            </ul>
+            <ul>
+            <?php
+
+            $sql = 'SELECT * FROM user';
+            $statement = $pdo->query($sql);
+            while($user = $statement->fetch()){
+            ?>
+                <li>
+                    <label for="user_1"><?php echo $user['label']; ?></label>
+                </li>
+            <?php
+            }
+
             ?>
 
         </ul>

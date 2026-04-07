@@ -9,10 +9,21 @@
     <form action="submit.php" method="POST">
         <h1>Corvee</h1>
         <ul>
-            <li>
-                <label for="tache_1">Terminer HTML</label>
-                <input type="checkbox" name="tache_1" id="tache_1">
-            </li>
+
+            <?php
+            include 'PDO.php';
+            
+            $sql = 'SELECT * FROM `tache` ORDER BY id ASC';
+            
+            $statement = $pdo->query($sql);
+            while($tache = $statement->fetch()){
+                echo '<li>
+                    <label for="tache_1">'.$tache['contenu'].'</label>
+                    <input type="checkbox" name="tache_1" id="tache_1">
+                </li>';
+            }
+            ?>
+
         </ul>
         
         <label for="create">Nouvelle ?</label>

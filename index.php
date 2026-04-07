@@ -13,35 +13,26 @@
             include 'PDO.php';
             
             $sql = 'SELECT id, contenu, accompli FROM `tache` ORDER BY id ASC';
-            
             $statement = $pdo->query($sql);
             while($tache = $statement->fetch()){
+
+                if($tache['accompli'] == '1'){
+                    $checked = 'checked';
+                }
+                else{
+                    $checked = '';
+                }
+                
             ?>
                 <li>
-                    <input type="checkbox" name="tache_1" id="tache_1">
+                    <input type="checkbox" <?php echo $checked; ?> name="tache_<?php echo $tache['id']; ?>" id="tache_1">
                     <label for="tache_1"><?php echo $tache['contenu']; ?></label>
                 </li>
             <?php
             }
             ?>
-            </ul>
-            <ul>
-            <?php
-
-            $sql = 'SELECT * FROM user';
-            $statement = $pdo->query($sql);
-            while($user = $statement->fetch()){
-            ?>
-                <li>
-                    <label for="user_1"><?php echo $user['label']; ?></label>
-                </li>
-            <?php
-            }
-
-            ?>
-
         </ul>
-        
+                 
         <label for="create">Nouvelle ?</label>
         <input type="text" name="nouvelle" id="create">
         <button type="submit">Go</button>

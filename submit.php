@@ -1,11 +1,11 @@
 <?php
 
 var_dump($_POST);
+
 include 'PDO.php';
 
 $sql = 'SELECT id, contenu, accompli FROM `tache` ORDER BY id ASC';
 $statement = $pdo->query($sql);
-
 $taches = $statement->fetchAll();
 
 foreach($taches as $tache){
@@ -26,10 +26,15 @@ if($_POST['nouvelle'] != ''){
     // ATTENTION !! ici il faut utiliser les prepared statement
     // NE JAMAIS integrer des donnees exterieures au code dans une query
     // https://phpdelusions.net/pdo#prepared
-    $sql = 'INSERT INTO tache (contenu) VALUES("'.$_POST['nouvelle'].'")';
-    $pdo->query($sql);
-}
+    // $sql = 'INSERT INTO tache (contenu) VALUES("'.$_POST['nouvelle'].'")';
+    // $pdo->query($sql);
 
+    $sql = 'INSERT INTO tache (contenu) VALUES(?)';
+    $data = [$_POST['nouvelle']];
+
+    $stmt = $pdo->prepare($sql);    
+    $stmt->execute($data);
+}
 
 if($_POST['reset'] == true){
     // CECI EST SAFE SANS PREPARED STATEMENT, le 0 vient du dev
